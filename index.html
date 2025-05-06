@@ -4,88 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flavor Matchmaker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
         }
         .container {
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #333;
+            color: #2c3e50;
             text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         .input-section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         input {
-            padding: 8px;
-            margin: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76,175,80,0.3);
         }
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         button:hover {
             background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        #ingredients-list {
+            margin: 20px 0;
+        }
+        .ingredient-tag {
+            background-color: #e8f5e9;
+            color: #2c3e50;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .remove-btn {
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 1;
+            padding: 0;
+        }
+        .remove-btn:hover {
+            background-color: #ff1744;
         }
         #results {
-            margin-top: 20px;
+            margin-top: 30px;
         }
         .pairing {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 4px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .pairing:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .pairing strong {
+            color: #4CAF50;
+        }
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+        .suggestions {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            display: none;
+        }
+        .suggestions.show {
+            display: block;
+        }
+        .suggestion-item {
+            cursor: pointer;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #e8f5e9;
+            border-radius: 15px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #4CAF50;
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Flavor Matchmaker</h1>
+        <h1>✨ Flavor Matchmaker ✨</h1>
         <div class="input-section">
-            <input type="text" id="ingredient" placeholder="Enter an ingredient">
-            <button onclick="addIngredient()">Add</button>
-            <button onclick="findPairings()">Find Pairings</button>
+            <input type="text" id="ingredient" placeholder="Enter an ingredient..." autocomplete="off">
+            <button onclick="addIngredient()">Add Ingredient</button>
+            <button onclick="findPairings()">Find Perfect Matches</button>
         </div>
         <div id="ingredients-list"></div>
         <div id="results"></div>
+        <div id="suggestions" class="suggestions">
+            <h3>Popular Ingredients:</h3>
+            <div id="suggestion-list"></div>
+        </div>
     </div>
 
     <script>
-        // Flavor pairing data
         const flavorPairings = {
-            "apple": ["cinnamon", "caramel", "pear", "walnut"],
-            "banana": ["chocolate", "peanut butter", "strawberry", "coconut"],
-            "chocolate": ["mint", "orange", "raspberry", "coffee"],
-            "strawberry": ["cream", "rhubarb", "balsamic", "mint"],
-            "lemon": ["blueberry", "honey", "thyme", "ginger"],
-            "tomato": ["basil", "mozzarella", "garlic", "oregano"],
-            "chicken": ["rosemary", "lemon", "garlic", "thyme"],
-            "beef": ["mushroom", "red wine", "garlic", "onion"],
-            "salmon": ["dill", "lemon", "cucumber", "asparagus"],
-            "pasta": ["tomato", "basil", "garlic", "parmesan"],
-            "rice": ["soy sauce", "ginger", "garlic", "sesame"],
-            "potato": ["rosemary", "garlic", "cheese", "onion"],
-            "carrot": ["ginger", "orange", "honey", "cumin"],
-            "broccoli": ["garlic", "lemon", "cheese", "almond"],
-            "spinach": ["garlic", "lemon", "pine nut", "feta"]
+            "apple": ["cinnamon", "caramel", "pear", "walnut", "honey", "ginger"],
+            "banana": ["chocolate", "peanut butter", "strawberry", "coconut", "honey", "cinnamon"],
+            "beet": ["goat cheese", "orange", "horseradish", "walnut", "apple", "balsamic"],
+            "chocolate": ["mint", "orange", "raspberry", "coffee", "hazelnut", "sea salt"],
+            "strawberry": ["cream", "rhubarb", "balsamic", "mint", "chocolate", "vanilla"],
+            "lemon": ["blueberry", "honey", "thyme", "ginger", "mint", "lavender"],
+            "tomato": ["basil", "mozzarella", "garlic", "oregano", "parmesan", "olive oil"],
+            "chicken": ["rosemary", "lemon", "garlic", "thyme", "sage", "tarragon"],
+            "beef": ["mushroom", "red wine", "garlic", "onion", "thyme", "black pepper"],
+            "salmon": ["dill", "lemon", "cucumber", "asparagus", "capers", "butter"],
+            "pasta": ["tomato", "basil", "garlic", "parmesan", "olive oil", "oregano"],
+            "rice": ["soy sauce", "ginger", "garlic", "sesame", "green onion", "egg"],
+            "potato": ["rosemary", "garlic", "cheese", "onion", "thyme", "butter"],
+            "carrot": ["ginger", "orange", "honey", "cumin", "cinnamon", "maple"],
+            "broccoli": ["garlic", "lemon", "cheese", "almond", "soy sauce", "sesame"],
+            "spinach": ["garlic", "lemon", "pine nut", "feta", "mushroom", "bacon"]
         };
 
         let ingredients = [];
+        const popularIngredients = Object.keys(flavorPairings);
 
         function addIngredient() {
             const input = document.getElementById('ingredient');
@@ -95,51 +187,85 @@
                 ingredients.push(ingredient);
                 updateIngredientsList();
                 input.value = '';
+                updateSuggestions();
             }
         }
 
         function updateIngredientsList() {
             const list = document.getElementById('ingredients-list');
             list.innerHTML = ingredients.map(ing => 
-                `<div class="pairing">
-                    ${ing} 
-                    <button onclick="removeIngredient('${ing}')" style="float: right;">Remove</button>
-                </div>`
+                `<span class="ingredient-tag">
+                    ${ing}
+                    <button class="remove-btn" onclick="removeIngredient('${ing}')">×</button>
+                </span>`
             ).join('');
         }
 
         function removeIngredient(ingredient) {
             ingredients = ingredients.filter(i => i !== ingredient);
             updateIngredientsList();
+            updateSuggestions();
         }
 
         function findPairings() {
             const results = document.getElementById('results');
-            let allPairings = [];
+            let commonPairings = new Set();
+            let firstIngredient = true;
 
             ingredients.forEach(ingredient => {
                 const pairings = flavorPairings[ingredient] || [];
-                pairings.forEach(pairing => {
-                    if (!ingredients.includes(pairing)) {
-                        allPairings.push({
-                            base: ingredient,
-                            pairing: pairing
-                        });
-                    }
-                });
+                if (firstIngredient) {
+                    // For the first ingredient, add all its pairings
+                    pairings.forEach(pairing => {
+                        if (!ingredients.includes(pairing)) {
+                            commonPairings.add(pairing);
+                        }
+                    });
+                    firstIngredient = false;
+                } else {
+                    // For subsequent ingredients, keep only pairings that work with this ingredient too
+                    const currentPairings = new Set(pairings);
+                    commonPairings = new Set([...commonPairings].filter(pairing => 
+                        currentPairings.has(pairing) && !ingredients.includes(pairing)
+                    ));
+                }
             });
 
-            if (allPairings.length === 0) {
-                results.innerHTML = '<p>No pairings found. Try adding different ingredients!</p>';
+            if (commonPairings.size === 0) {
+                results.innerHTML = '<p>No common pairings found. Try different ingredient combinations!</p>';
                 return;
             }
 
-            results.innerHTML = '<h2>Suggested Pairings:</h2>' + 
-                allPairings.map(p => 
-                    `<div class="pairing">
-                        <strong>${p.base}</strong> pairs well with <strong>${p.pairing}</strong>
-                    </div>`
-                ).join('');
+            results.innerHTML = '<h2>✨ Perfect Matches ✨</h2>' + 
+                `<div class="pairing">
+                    <span class="emoji">🌟</span>
+                    <strong>${ingredients.join(' + ')}</strong> pairs beautifully with:
+                    <br><br>
+                    ${Array.from(commonPairings).map(pairing => 
+                        `<span class="suggestion-item">${pairing}</span>`
+                    ).join(' ')}
+                </div>`;
+        }
+
+        function updateSuggestions() {
+            const suggestions = document.getElementById('suggestions');
+            const suggestionList = document.getElementById('suggestion-list');
+            
+            const availableIngredients = popularIngredients.filter(ing => !ingredients.includes(ing));
+            suggestionList.innerHTML = availableIngredients
+                .slice(0, 10)
+                .map(ing => `<span class="suggestion-item" onclick="addSuggestion('${ing}')">${ing}</span>`)
+                .join('');
+            
+            suggestions.classList.toggle('show', ingredients.length > 0);
+        }
+
+        function addSuggestion(ingredient) {
+            if (!ingredients.includes(ingredient)) {
+                ingredients.push(ingredient);
+                updateIngredientsList();
+                updateSuggestions();
+            }
         }
 
         // Allow Enter key to add ingredients
@@ -147,6 +273,11 @@
             if (e.key === 'Enter') {
                 addIngredient();
             }
+        });
+
+        // Show suggestions when input is focused
+        document.getElementById('ingredient').addEventListener('focus', function() {
+            document.getElementById('suggestions').classList.add('show');
         });
     </script>
 </body>
