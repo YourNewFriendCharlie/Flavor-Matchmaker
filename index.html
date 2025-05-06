@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavor Matchmaker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        .pairing {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flavor Matchmaker</h1>
+        <div class="input-section">
+            <input type="text" id="ingredient" placeholder="Enter an ingredient">
+            <button onclick="addIngredient()">Add</button>
+            <button onclick="findPairings()">Find Pairings</button>
+        </div>
+        <div id="ingredients-list"></div>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // Flavor pairing data
+        const flavorPairings = {
+            "apple": ["cinnamon", "caramel", "pear", "walnut"],
+            "banana": ["chocolate", "peanut butter", "strawberry", "coconut"],
+            "chocolate": ["mint", "orange", "raspberry", "coffee"],
+            "strawberry": ["cream", "rhubarb", "balsamic", "mint"],
+            "lemon": ["blueberry", "honey", "thyme", "ginger"],
+            "tomato": ["basil", "mozzarella", "garlic", "oregano"],
+            "chicken": ["rosemary", "lemon", "garlic", "thyme"],
+            "beef": ["mushroom", "red wine", "garlic", "onion"],
+            "salmon": ["dill", "lemon", "cucumber", "asparagus"],
+            "pasta": ["tomato", "basil", "garlic", "parmesan"],
+            "rice": ["soy sauce", "ginger", "garlic", "sesame"],
+            "potato": ["rosemary", "garlic", "cheese", "onion"],
+            "carrot": ["ginger", "orange", "honey", "cumin"],
+            "broccoli": ["garlic", "lemon", "cheese", "almond"],
+            "spinach": ["garlic", "lemon", "pine nut", "feta"]
+        };
+
+        let ingredients = [];
+
+        function addIngredient() {
+            const input = document.getElementById('ingredient');
+            const ingredient = input.value.trim().toLowerCase();
+            
+            if (ingredient && !ingredients.includes(ingredient)) {
+                ingredients.push(ingredient);
+                updateIngredientsList();
+                input.value = '';
+            }
+        }
+
+        function updateIngredientsList() {
+            const list = document.getElementById('ingredients-list');
+            list.innerHTML = ingredients.map(ing => 
+                `<div class="pairing">
+                    ${ing} 
+                    <button onclick="removeIngredient('${ing}')" style="float: right;">Remove</button>
+                </div>`
+            ).join('');
+        }
+
+        function removeIngredient(ingredient) {
+            ingredients = ingredients.filter(i => i !== ingredient);
+            updateIngredientsList();
+        }
+
+        function findPairings() {
+            const results = document.getElementById('results');
+            let allPairings = [];
+
+            ingredients.forEach(ingredient => {
+                const pairings = flavorPairings[ingredient] || [];
+                pairings.forEach(pairing => {
+                    if (!ingredients.includes(pairing)) {
+                        allPairings.push({
+                            base: ingredient,
+                            pairing: pairing
+                        });
+                    }
+                });
+            });
+
+            if (allPairings.length === 0) {
+                results.innerHTML = '<p>No pairings found. Try adding different ingredients!</p>';
+                return;
+            }
+
+            results.innerHTML = '<h2>Suggested Pairings:</h2>' + 
+                allPairings.map(p => 
+                    `<div class="pairing">
+                        <strong>${p.base}</strong> pairs well with <strong>${p.pairing}</strong>
+                    </div>`
+                ).join('');
+        }
+
+        // Allow Enter key to add ingredients
+        document.getElementById('ingredient').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addIngredient();
+            }
+        });
+    </script>
+</body>
+</html> 
