@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flavor Matchmaker</title>
+    <title>✨ Flavor Matchmaker ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -11,21 +11,86 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 100%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '✨';
+            position: fixed;
+            font-size: 20px;
+            animation: float 3s infinite;
+            left: 10%;
+            top: 20%;
+        }
+        body::after {
+            content: '🌟';
+            position: fixed;
+            font-size: 20px;
+            animation: float 4s infinite 1s;
+            right: 10%;
+            top: 30%;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
         .container {
             background-color: white;
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #ffb6c1;
+        }
+        .container::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            animation: sparkle 1.5s infinite;
+        }
+        .container::after {
+            content: '✨';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 24px;
+            animation: sparkle 1.5s infinite 0.5s;
+        }
+        @keyframes sparkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(0.8); }
         }
         h1 {
-            color: #2c3e50;
+            color: #ff69b4;
             text-align: center;
             font-size: 2.5em;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        h1::before, h1::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            animation: sparkle 1.5s infinite;
+        }
+        h1::before {
+            left: -40px;
+        }
+        h1::after {
+            right: -40px;
         }
         .input-section {
             margin-bottom: 30px;
@@ -33,22 +98,25 @@
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
+            position: relative;
         }
         input {
             padding: 12px 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #ffb6c1;
             border-radius: 25px;
             font-size: 16px;
             width: 200px;
             transition: all 0.3s ease;
+            background-color: #fff5f7;
         }
         input:focus {
             outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76,175,80,0.3);
+            border-color: #ff69b4;
+            box-shadow: 0 0 5px rgba(255,105,180,0.3);
+            transform: scale(1.02);
         }
         button {
-            background-color: #4CAF50;
+            background-color: #ff69b4;
             color: white;
             padding: 12px 25px;
             border: none;
@@ -58,27 +126,69 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
         button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
+            background-color: #ff1493;
+            transform: translateY(-2px) scale(1.05);
             box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
         #ingredients-list {
             margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
         }
         .ingredient-tag {
-            background-color: #e8f5e9;
-            color: #2c3e50;
+            background-color: #ffe4e1;
+            color: #ff69b4;
             padding: 8px 15px;
             border-radius: 20px;
             margin: 5px;
             display: inline-block;
             font-size: 14px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            animation: popIn 0.3s ease;
+            border: 2px solid #ffb6c1;
+            position: relative;
+        }
+        .ingredient-tag::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 12px;
+            animation: sparkle 1.5s infinite;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
         }
         .remove-btn {
-            background-color: #ff5252;
+            background-color: #ff69b4;
             color: white;
             border: none;
             border-radius: 50%;
@@ -89,91 +199,577 @@
             font-size: 12px;
             line-height: 1;
             padding: 0;
+            transition: all 0.3s ease;
         }
         .remove-btn:hover {
-            background-color: #ff1744;
+            background-color: #ff1493;
+            transform: scale(1.2) rotate(90deg);
         }
         #results {
             margin-top: 30px;
         }
         .pairing {
-            background-color: #f8f9fa;
+            background-color: #fff0f5;
             padding: 15px;
             margin: 10px 0;
             border-radius: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
+            animation: slideIn 0.5s ease;
+            border: 2px solid #ffb6c1;
+            position: relative;
+            overflow: hidden;
+        }
+        .pairing::before {
+            content: '✨';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 16px;
+            animation: sparkle 1.5s infinite;
+        }
+        @keyframes slideIn {
+            0% { transform: translateX(-20px) rotate(-2deg); opacity: 0; }
+            50% { transform: translateX(10px) rotate(2deg); }
+            100% { transform: translateX(0) rotate(0); opacity: 1; }
         }
         .pairing:hover {
-            transform: translateX(5px);
+            transform: translateX(5px) scale(1.02);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .pairing strong {
-            color: #4CAF50;
+            color: #ff69b4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .emoji {
             font-size: 1.2em;
             margin-right: 5px;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         .suggestions {
             margin-top: 20px;
             padding: 15px;
-            background-color: #f8f9fa;
+            background-color: #fff0f5;
             border-radius: 15px;
             display: none;
+            border: 2px solid #ffb6c1;
         }
         .suggestions.show {
             display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
         .suggestion-item {
             cursor: pointer;
             padding: 5px 10px;
             margin: 5px;
-            background-color: #e8f5e9;
+            background-color: #ffe4e1;
             border-radius: 15px;
             display: inline-block;
             transition: all 0.3s ease;
+            border: 1px solid #ffb6c1;
         }
         .suggestion-item:hover {
-            background-color: #4CAF50;
+            background-color: #ff69b4;
             color: white;
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #ff69b4;
+            font-size: 1.2em;
+            position: relative;
+        }
+        .loading::after {
+            content: '✨';
+            animation: loading 1s infinite;
+            margin-left: 10px;
+        }
+        @keyframes loading {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(0.8); }
+        }
+        .rainbow-text {
+            background: linear-gradient(
+                to right,
+                #ff69b4,
+                #ff1493,
+                #ff69b4,
+                #ff1493
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 3s linear infinite;
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Flying Unicorn Animation */
+        .flying-unicorn {
+            position: fixed;
+            font-size: 50px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: flyAround 25s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 192, 203, 0.8));
+            transform-origin: center;
+            cursor: pointer;
+            pointer-events: auto;
+            top: 50%;
+        }
+        .flying-unicorn::before {
+            content: '🦄';
+            animation: unicornFloat 2s ease-in-out infinite;
+            display: block;
+            transform-origin: center;
+        }
+        .flying-unicorn::after {
+            content: '✨';
+            position: absolute;
+            font-size: 25px;
+            animation: sparkleTrail 0.5s infinite 0.2s;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        }
+        .glitter-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .glitter {
+            position: absolute;
+            font-size: 20px;
+            animation: glitterFall 1.5s ease-out forwards;
+            opacity: 0;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
+        }
+        .explosion {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1001;
+        }
+        .explosion-particle {
+            position: absolute;
+            font-size: 30px;
+            animation: explode 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .death-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: #ff1493;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1002;
+            animation: fadeInOut 2s ease-in-out forwards;
+            text-align: center;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        }
+        @keyframes unicornFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-10px) rotate(5deg) scale(1.1); }
+            50% { transform: translateY(0) rotate(0deg) scale(1); }
+            75% { transform: translateY(10px) rotate(-5deg) scale(0.9); }
+        }
+        @keyframes flyAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                left: 0;
+            }
+            20% {
+                transform: translate(100px, -150px) rotate(90deg) scale(1.2);
+                left: 20%;
+            }
+            40% {
+                transform: translate(0, 0) rotate(180deg) scale(1);
+                left: 40%;
+            }
+            60% {
+                transform: translate(-100px, 150px) rotate(270deg) scale(0.8);
+                left: 60%;
+            }
+            80% {
+                transform: translate(0, 0) rotate(360deg) scale(1);
+                left: 80%;
+            }
+            100% {
+                transform: translate(0, 0) rotate(720deg) scale(1);
+                left: 0;
+            }
+        }
+        @keyframes glitterFall {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(var(--x), var(--y)) rotate(180deg) scale(1.2);
+                filter: hue-rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(var(--x) * 1.5), calc(var(--y) * 1.5)) rotate(360deg) scale(0);
+                filter: hue-rotate(360deg);
+            }
+        }
+        @keyframes sparkleTrail {
+            0% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+            100% { opacity: 0.3; transform: scale(0.8) rotate(360deg); }
+        }
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) scale(0) rotate(360deg);
+            }
+        }
+
+        /* Metal Music Player Styles */
+        .music-player {
+            display: none;
+        }
+        /* Click to Start Overlay */
+        .click-to-start {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        .click-to-start h2 {
+            color: #ff1493;
+            font-size: 2em;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+        .click-to-start p {
+            color: white;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .poop-emoji {
+            font-size: 4em;
+            animation: bounce 1s infinite;
+            display: block;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse {
+            0% { background: rgba(0, 0, 0, 0.8); }
+            50% { background: rgba(0, 0, 0, 0.9); }
+            100% { background: rgba(0, 0, 0, 0.8); }
+        }
+
+        /* Cursor Trail and Weather Effects */
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 998;
+        }
+        .trail-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            opacity: 0.8;
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+        .weather-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .cloud {
+            position: absolute;
+            font-size: 40px;
+            animation: floatCloud 20s linear infinite;
+            opacity: 0.7;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; transform: scale(0.5); }
+        }
+        @keyframes floatCloud {
+            0% { transform: translateX(-100vw); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* Rave Mode Styles */
+        .rave-mode {
+            animation: raveBackground 2s linear infinite;
+        }
+        @keyframes raveBackground {
+            0% { background: linear-gradient(135deg, #ff0000, #ff1493); }
+            20% { background: linear-gradient(135deg, #ff1493, #ff00ff); }
+            40% { background: linear-gradient(135deg, #ff00ff, #0000ff); }
+            60% { background: linear-gradient(135deg, #0000ff, #00ff00); }
+            80% { background: linear-gradient(135deg, #00ff00, #ffff00); }
+            100% { background: linear-gradient(135deg, #ffff00, #ff0000); }
+        }
+        .laser {
+            position: fixed;
+            pointer-events: none;
+            z-index: 997;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff00ff, transparent);
+            animation: laserMove 2s linear infinite;
+            opacity: 0.7;
+        }
+        @keyframes laserMove {
+            0% { transform: translateX(-100vw) rotate(0deg); }
+            100% { transform: translateX(100vw) rotate(0deg); }
+        }
+        .rave-button {
+            background: linear-gradient(45deg, #ff00ff, #00ff00, #ff00ff);
+            background-size: 200% 200%;
+            animation: raveButton 2s linear infinite;
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            font-weight: bold;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 0 0 15px rgba(255,0,255,0.5);
+        }
+        @keyframes raveButton {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Jesus Appearance Styles */
+        .jesus-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1002;
+            animation: jesusAppear 4s ease-in-out forwards;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 20px;
+            border: 4px solid #ffd700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+        .jesus-icon {
+            width: 200px;
+            height: 200px;
+            background-image: url('./jesus.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+        }
+        @keyframes jesusAppear {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+        .warning-note {
+            text-align: center;
+            color: #ff1493;
+            font-size: 1.2em;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 2px solid #ff1493;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Kill Counter Styles */
+        .kill-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 20, 147, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+            z-index: 1000;
+            display: none;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .kill-counter.visible {
+            display: block;
+            animation: popIn 0.3s ease;
+        }
+        .kill-counter.warning {
+            background: rgba(255, 0, 0, 0.9);
+            animation: pulse 0.5s infinite;
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            width: 100%;
+            background-color: #ffe4e1;
+            border-radius: 25px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+            border: 2px solid #ffb6c1;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 30px;
+            background: linear-gradient(90deg, #ff69b4, #ff1493);
+            border-radius: 25px;
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shine 1s infinite;
+        }
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            line-height: 30px;
         }
     </style>
 </head>
 <body>
+    <div class="click-to-start">
+        <div>
+            <span class="poop-emoji">💩</span>
+            <h2>Click the Poopy</h2>
+            <p>Turn up your volume!</p>
+        </div>
+    </div>
+    <div class="flying-unicorn" style="animation-delay: 0s; left: 10%; top: 20%;" onclick="explodeUnicorn(this)"></div>
+    <div class="flying-unicorn" style="animation-delay: 5s; left: 30%; top: 70%;" onclick="explodeUnicorn(this)"></div>
+    <div class="flying-unicorn" style="animation-delay: 10s; left: 70%; top: 30%;" onclick="explodeUnicorn(this)"></div>
+    <div class="flying-unicorn" style="animation-delay: 15s; left: 20%; top: 60%;" onclick="explodeUnicorn(this)"></div>
+    <div class="flying-unicorn" style="animation-delay: 20s; left: 60%; top: 40%;" onclick="explodeUnicorn(this)"></div>
+    <div class="flying-unicorn" style="animation-delay: 25s; left: 40%; top: 80%;" onclick="explodeUnicorn(this)"></div>
+    <div class="explosion"></div>
+    <div class="glitter-trail"></div>
     <div class="container">
-        <h1>✨ Flavor Matchmaker ✨</h1>
+        <h1 class="rainbow-text">✨ Flavor Matchmaker ✨</h1>
         <div class="input-section">
             <input type="text" id="ingredient" placeholder="Enter an ingredient..." autocomplete="off">
             <button onclick="addIngredient()">Add Ingredient</button>
             <button onclick="findPairings()">Find Perfect Matches</button>
+            <button class="rave-button" onclick="toggleRaveMode()">🎵 RAVE MODE 🎵</button>
         </div>
         <div id="ingredients-list"></div>
         <div id="results"></div>
         <div id="suggestions" class="suggestions">
-            <h3>Popular Ingredients:</h3>
+            <h3>✨ Popular Ingredients ✨</h3>
             <div id="suggestion-list"></div>
         </div>
+        <div class="warning-note">⚠️ Do not click the Unicorns! ⚠️</div>
     </div>
 
+    <audio id="metalMusic" loop autoplay>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="weather-effect"></div>
+    <div class="cursor-trail"></div>
+
+    <div class="kill-counter">Unicorn Kills: <span id="kill-count">0</span></div>
+
     <script>
+        // Base flavor pairings from Flavor Bible principles
         const flavorPairings = {
-            "apple": ["cinnamon", "caramel", "pear", "walnut", "honey", "ginger"],
-            "banana": ["chocolate", "peanut butter", "strawberry", "coconut", "honey", "cinnamon"],
-            "beet": ["goat cheese", "orange", "horseradish", "walnut", "apple", "balsamic"],
-            "chocolate": ["mint", "orange", "raspberry", "coffee", "hazelnut", "sea salt"],
-            "strawberry": ["cream", "rhubarb", "balsamic", "mint", "chocolate", "vanilla"],
-            "lemon": ["blueberry", "honey", "thyme", "ginger", "mint", "lavender"],
-            "tomato": ["basil", "mozzarella", "garlic", "oregano", "parmesan", "olive oil"],
-            "chicken": ["rosemary", "lemon", "garlic", "thyme", "sage", "tarragon"],
-            "beef": ["mushroom", "red wine", "garlic", "onion", "thyme", "black pepper"],
-            "salmon": ["dill", "lemon", "cucumber", "asparagus", "capers", "butter"],
-            "pasta": ["tomato", "basil", "garlic", "parmesan", "olive oil", "oregano"],
-            "rice": ["soy sauce", "ginger", "garlic", "sesame", "green onion", "egg"],
-            "potato": ["rosemary", "garlic", "cheese", "onion", "thyme", "butter"],
-            "carrot": ["ginger", "orange", "honey", "cumin", "cinnamon", "maple"],
-            "broccoli": ["garlic", "lemon", "cheese", "almond", "soy sauce", "sesame"],
-            "spinach": ["garlic", "lemon", "pine nut", "feta", "mushroom", "bacon"]
+            "apple": ["cinnamon", "caramel", "pear", "walnut", "honey", "ginger", "maple", "vanilla"],
+            "banana": ["chocolate", "peanut butter", "strawberry", "coconut", "honey", "cinnamon", "nutmeg", "rum"],
+            "beet": ["goat cheese", "orange", "horseradish", "walnut", "apple", "balsamic", "dill", "citrus", "ginger", "honey", "mint"],
+            "chocolate": ["mint", "orange", "raspberry", "coffee", "hazelnut", "sea salt", "vanilla", "chili"],
+            "strawberry": ["cream", "rhubarb", "balsamic", "mint", "chocolate", "vanilla", "lemon", "basil"],
+            "lemon": ["blueberry", "honey", "thyme", "ginger", "mint", "lavender", "vanilla", "rosemary"],
+            "tomato": ["basil", "mozzarella", "garlic", "oregano", "parmesan", "olive oil", "balsamic", "thyme"],
+            "chicken": ["rosemary", "lemon", "garlic", "thyme", "sage", "tarragon", "butter", "white wine"],
+            "beef": ["mushroom", "red wine", "garlic", "onion", "thyme", "black pepper", "rosemary", "mustard"],
+            "salmon": ["dill", "lemon", "cucumber", "asparagus", "capers", "butter", "white wine", "tarragon"],
+            "pasta": ["tomato", "basil", "garlic", "parmesan", "olive oil", "oregano", "mushroom", "cream"],
+            "rice": ["soy sauce", "ginger", "garlic", "sesame", "green onion", "egg", "mushroom", "coconut"],
+            "potato": ["rosemary", "garlic", "cheese", "onion", "thyme", "butter", "cream", "chives"],
+            "carrot": ["ginger", "orange", "honey", "cumin", "cinnamon", "maple", "butter", "thyme"],
+            "broccoli": ["garlic", "lemon", "cheese", "almond", "soy sauce", "sesame", "butter", "parmesan"],
+            "spinach": ["garlic", "lemon", "pine nut", "feta", "mushroom", "bacon", "cream", "nutmeg"]
         };
 
         let ingredients = [];
@@ -188,6 +784,15 @@
                 updateIngredientsList();
                 input.value = '';
                 updateSuggestions();
+                // Add sparkle effect
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                sparkle.style.animation = 'sparkle 1s forwards';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
             }
         }
 
@@ -209,42 +814,76 @@
 
         function findPairings() {
             const results = document.getElementById('results');
-            let commonPairings = new Set();
-            let firstIngredient = true;
+            results.innerHTML = '<div class="loading">Finding perfect matches</div>';
+            
+            // Add progress bar
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+            progressContainer.innerHTML = `
+                <div class="progress-bar">
+                    <div class="progress-text">Analyzing flavors...</div>
+                </div>
+            `;
+            results.appendChild(progressContainer);
+            progressContainer.style.display = 'block';
 
+            // Simple and fast matching logic
+            let suggestions = new Set();
+            
+            // Get direct pairings for each ingredient
             ingredients.forEach(ingredient => {
                 const pairings = flavorPairings[ingredient] || [];
-                if (firstIngredient) {
-                    // For the first ingredient, add all its pairings
-                    pairings.forEach(pairing => {
-                        if (!ingredients.includes(pairing)) {
-                            commonPairings.add(pairing);
-                        }
-                    });
-                    firstIngredient = false;
-                } else {
-                    // For subsequent ingredients, keep only pairings that work with this ingredient too
-                    const currentPairings = new Set(pairings);
-                    commonPairings = new Set([...commonPairings].filter(pairing => 
-                        currentPairings.has(pairing) && !ingredients.includes(pairing)
-                    ));
-                }
+                pairings.forEach(pairing => {
+                    if (!ingredients.includes(pairing)) {
+                        suggestions.add(pairing);
+                    }
+                });
             });
 
-            if (commonPairings.size === 0) {
-                results.innerHTML = '<p>No common pairings found. Try different ingredient combinations!</p>';
-                return;
+            // Create the results HTML
+            let resultsHTML = '<h2>✨ Flavor Pairing Suggestions ✨</h2>';
+
+            // Add suggestions section
+            if (suggestions.size > 0) {
+                resultsHTML += `
+                    <div class="pairing">
+                        <span class="emoji">🌟</span>
+                        <strong>Perfect Matches</strong>
+                        <br><br>
+                        ${ingredients.join(' + ')} pairs beautifully with:
+                        <br><br>
+                        ${Array.from(suggestions).map(pairing => 
+                            `<span class="suggestion-item">${pairing}</span>`
+                        ).join(' ')}
+                    </div>`;
             }
 
-            results.innerHTML = '<h2>✨ Perfect Matches ✨</h2>' + 
-                `<div class="pairing">
-                    <span class="emoji">🌟</span>
-                    <strong>${ingredients.join(' + ')}</strong> pairs beautifully with:
-                    <br><br>
-                    ${Array.from(commonPairings).map(pairing => 
-                        `<span class="suggestion-item">${pairing}</span>`
-                    ).join(' ')}
-                </div>`;
+            // Animate progress bar faster
+            const progressBar = progressContainer.querySelector('.progress-bar');
+            const progressText = progressContainer.querySelector('.progress-text');
+            let progress = 0;
+            
+            const progressInterval = setInterval(() => {
+                progress += 25; // Even faster progress
+                progressBar.style.width = `${progress}%`;
+                
+                // Update progress text
+                if (progress < 30) {
+                    progressText.textContent = 'Analyzing flavors...';
+                } else if (progress < 60) {
+                    progressText.textContent = 'Finding perfect matches...';
+                } else if (progress < 90) {
+                    progressText.textContent = 'Almost there...';
+                } else {
+                    progressText.textContent = 'Done!';
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    results.innerHTML = resultsHTML;
+                    progressContainer.remove();
+                }
+            }, 15); // Even faster interval
         }
 
         function updateSuggestions() {
@@ -279,6 +918,308 @@
         document.getElementById('ingredient').addEventListener('focus', function() {
             document.getElementById('suggestions').classList.add('show');
         });
+
+        // Add floating sparkles
+        function addFloatingSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.animation = 'float 3s infinite';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 3000);
+        }
+
+        // Add sparkles periodically
+        setInterval(addFloatingSparkle, 2000);
+
+        // Enhanced glitter trail effect
+        function createGlitter(x, y) {
+            const glitter = document.createElement('div');
+            glitter.className = 'glitter';
+            glitter.innerHTML = '✨';
+            glitter.style.left = x + 'px';
+            glitter.style.top = y + 'px';
+            
+            // Reduced distance for closer sparkles
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 20 + Math.random() * 30; // Reduced from 70-150 to 20-50
+            const xOffset = Math.cos(angle) * distance;
+            const yOffset = Math.sin(angle) * distance;
+            
+            glitter.style.setProperty('--x', xOffset + 'px');
+            glitter.style.setProperty('--y', yOffset + 'px');
+            
+            document.querySelector('.glitter-trail').appendChild(glitter);
+            
+            // Remove glitter after animation
+            setTimeout(() => glitter.remove(), 1500);
+        }
+
+        // Track unicorn position and create more glitter
+        function updateUnicornPosition() {
+            const unicorn = document.querySelector('.flying-unicorn');
+            const rect = unicorn.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            // Create fewer glitter particles
+            for (let i = 0; i < 3; i++) { // Reduced from 5 to 3
+                createGlitter(x, y);
+            }
+        }
+
+        // Update glitter trail less frequently
+        setInterval(updateUnicornPosition, 100); // Increased from 50ms to 100ms
+
+        // Metal Music Controls
+        const metalMusic = document.getElementById('metalMusic');
+        const clickOverlay = document.querySelector('.click-to-start');
+        
+        // Handle click to start
+        document.addEventListener('click', function() {
+            metalMusic.play().then(() => {
+                // Remove the overlay when music starts
+                clickOverlay.style.display = 'none';
+            }).catch(function(error) {
+                console.log("Audio play failed:", error);
+            });
+        }, { once: true });
+
+        // Set initial volume
+        metalMusic.volume = 0.5;
+
+        // Global variables for kill tracking
+        let killCount = 0;
+
+        function updateKillCounter() {
+            const counter = document.querySelector('.kill-counter');
+            const count = document.getElementById('kill-count');
+            
+            // Update the counter display
+            count.textContent = killCount;
+            
+            // Show counter if kills > 0
+            if (killCount > 0) {
+                counter.classList.add('visible');
+                if (killCount >= 69) {
+                    counter.classList.add('warning');
+                    counter.style.background = 'rgba(255, 0, 0, 0.9)';
+                }
+            } else {
+                counter.classList.remove('visible');
+                counter.classList.remove('warning');
+            }
+        }
+
+        // Add a counter for Jesus appearances
+        let jesusAppearances = 0;
+
+        function showJesusMessage() {
+            console.log('Attempting to show Jesus message');
+            jesusAppearances++;
+            const jesusMessage = document.createElement('div');
+            jesusMessage.className = 'jesus-message';
+            
+            // Different messages based on appearance count
+            let message;
+            if (jesusAppearances === 2) {
+                message = "OH YOU'RE BAD!";
+            } else if (jesusAppearances === 3) {
+                message = "YOU'RE GOING TO HELL!";
+            } else if (jesusAppearances === 4) {
+                message = "YOU ASKED FOR IT!";
+                // Open YouTube link after a short delay
+                setTimeout(() => {
+                    window.open('https://www.youtube.com/watch?v=bKd_2vqPrmU', '_blank');
+                }, 2000);
+            } else {
+                message = "I SAW THAT!";
+            }
+            
+            jesusMessage.innerHTML = `
+                <div class="jesus-icon"></div>
+                <div style="font-size: 1.2em; font-weight: bold;">${message}</div>
+            `;
+            document.body.appendChild(jesusMessage);
+            
+            // Play angelic sound
+            const angelSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+            angelSound.volume = 0.7;
+            angelSound.play().catch(e => console.log('Sound play failed:', e));
+            
+            // Remove message after animation
+            setTimeout(() => {
+                jesusMessage.remove();
+                console.log('Jesus message removed');
+            }, 4000);
+        }
+
+        // Unicorn explosion effect
+        function explodeUnicorn(unicorn) {
+            // Hide unicorn
+            unicorn.style.display = 'none';
+            
+            // Create explosion effect
+            const explosion = document.querySelector('.explosion');
+            const rect = unicorn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Create explosion particles
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'explosion-particle';
+                particle.innerHTML = '✨';
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = 100 + Math.random() * 50;
+                const xOffset = Math.cos(angle) * distance;
+                const yOffset = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--x', xOffset + 'px');
+                particle.style.setProperty('--y', yOffset + 'px');
+                
+                explosion.appendChild(particle);
+                setTimeout(() => particle.remove(), 500);
+            }
+            
+            // Show death message
+            const deathMessage = document.createElement('div');
+            deathMessage.className = 'death-message';
+            deathMessage.innerHTML = 'You killed me! 💀';
+            document.body.appendChild(deathMessage);
+            setTimeout(() => deathMessage.remove(), 2000);
+            
+            // Play explosion sound
+            const explosionSound = new Audio('https://www.soundjay.com/mechanical/sounds/explosion-01.mp3');
+            explosionSound.volume = 0.3;
+            explosionSound.play().catch(e => console.log('Sound play failed:', e));
+            
+            // Update kill counter
+            if (killCount < 69) {
+                killCount++;
+                updateKillCounter();
+                
+                // Show Jesus message every 2 kills
+                if (killCount % 2 === 0) {
+                    showJesusMessage();
+                }
+            }
+            
+            // Bring unicorn back after explosion
+            setTimeout(() => {
+                unicorn.style.display = 'block';
+            }, 1000);
+        }
+
+        // Initialize kill counter
+        updateKillCounter();
+
+        // Cursor Trail Effect
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let lastTime = Date.now();
+
+        function createCursorTrail(e) {
+            const trail = document.querySelector('.cursor-trail');
+            const particle = document.createElement('div');
+            particle.className = 'trail-particle';
+            particle.style.left = `${e.clientX}px`;
+            particle.style.top = `${e.clientY}px`;
+            
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastTime;
+            const deltaX = e.clientX - lastMouseX;
+            const deltaY = e.clientY - lastMouseY;
+            const speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / deltaTime;
+            
+            const size = 3 + Math.min(speed, 8);
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            trail.appendChild(particle);
+            setTimeout(() => particle.remove(), 500);
+            
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+            lastTime = currentTime;
+        }
+
+        // Create Clouds
+        function createClouds() {
+            const weatherEffect = document.querySelector('.weather-effect');
+            for (let i = 0; i < 5; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.innerHTML = '☁️';
+                cloud.style.top = `${Math.random() * 100}%`;
+                cloud.style.animationDelay = `${i * 4}s`;
+                weatherEffect.appendChild(cloud);
+            }
+        }
+
+        // Initialize effects
+        document.addEventListener('mousemove', createCursorTrail);
+        createClouds();
+
+        // Rave Mode Functions
+        let raveMode = false;
+        let laserInterval;
+
+        function toggleRaveMode() {
+            raveMode = !raveMode;
+            const body = document.body;
+            
+            if (raveMode) {
+                body.classList.add('rave-mode');
+                startLasers();
+                // Play rave music
+                const raveMusic = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3');
+                raveMusic.loop = true;
+                raveMusic.volume = 0.5;
+                raveMusic.play().catch(e => console.log('Rave music failed to play:', e));
+            } else {
+                body.classList.remove('rave-mode');
+                stopLasers();
+            }
+        }
+
+        function createLaser() {
+            const laser = document.createElement('div');
+            laser.className = 'laser';
+            laser.style.top = `${Math.random() * 100}%`;
+            laser.style.width = `${Math.random() * 200 + 100}px`;
+            document.body.appendChild(laser);
+            
+            setTimeout(() => laser.remove(), 2000);
+        }
+
+        function startLasers() {
+            laserInterval = setInterval(createLaser, 200);
+        }
+
+        function stopLasers() {
+            clearInterval(laserInterval);
+            document.querySelectorAll('.laser').forEach(laser => laser.remove());
+        }
+
+        // Randomize unicorn positions on load
+        function randomizeUnicornPositions() {
+            const unicorns = document.querySelectorAll('.flying-unicorn');
+            unicorns.forEach(unicorn => {
+                const randomX = Math.random() * 80 + 10; // 10% to 90% of screen width
+                const randomY = Math.random() * 80 + 10; // 10% to 90% of screen height
+                unicorn.style.left = `${randomX}%`;
+                unicorn.style.top = `${randomY}%`;
+            });
+        }
+
+        // Initialize unicorn positions
+        window.addEventListener('load', randomizeUnicornPositions);
     </script>
 </body>
 </html> 
